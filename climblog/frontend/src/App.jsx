@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import AddClimbForm from './components/AddClimbForm';
-import ClimbList from './components/ClimbList';
+import { Routes, Route, Link } from 'react-router-dom'
+import AddClimbForm from './components/AddClimbForm'
+import ClimbList from './components/ClimbList'
+import Home from './components/Home'
 
 function App() {
   const [climbs, setClimbs] = useState([])
@@ -12,14 +14,22 @@ function App() {
       .then(res => res.json())
       .then(data => setClimbs(data))
       .catch(err => console.error("Error fetching climbs:", err))
-  }, []) // only run once when the component mounts
+  }, []) 
+  
   return (
-    <div>
-      <h1>ClimbLog</h1>
-      <AddClimbForm />
-      <ClimbList climbs={climbs} />
-    </div>
-  );
+    <>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/add">Add Climb</Link>
+        <Link to="/list">All Climbs</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/add" element={<AddClimbForm />} />
+        <Route path="/list" element={<ClimbList climbs={climbs} />} />
+      </Routes>
+    </>
+  )
 }
 
 export default App

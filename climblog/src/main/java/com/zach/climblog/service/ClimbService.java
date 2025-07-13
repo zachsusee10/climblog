@@ -1,5 +1,6 @@
 package com.zach.climblog.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ public class ClimbService {
 
     public List<Climb> getAllClimbs() 
     {
+
+        System.out.println(climbRepository.findAll());
         return climbRepository.findAll();
     }
 
@@ -30,6 +33,27 @@ public class ClimbService {
     {
         return climbRepository.findBySent(true);
     }
+
+    public List<Climb> getClimbsByType(String type) 
+    {
+        return climbRepository.findByType(type);
+    }
+
+    public List<Climb> getClimbsByGrade(String grade) 
+    {
+        return climbRepository.findByGrade(grade);
+    }
+
+    public List<Climb> getClimbsByDate(LocalDate date) 
+    {
+        return climbRepository.findByDate(date);
+    }
+
+    public List<Climb> getMostRecentClimb()
+    {
+        return climbRepository.findTop1ByOrderByDateDesc();
+    }
+
 
     public void deleteClimb(Long id) 
     {

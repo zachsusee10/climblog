@@ -10,19 +10,20 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 public class Climb {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String grade;
-    private String type; // bouldering, sport, etc.
+    private String type; 
     private String gym;
     private boolean sent;
     private LocalDate date;
-    // Constructor, getters, setters, toString
 
-    public Climb() {
+    public Climb() 
+    {
 
     }
 

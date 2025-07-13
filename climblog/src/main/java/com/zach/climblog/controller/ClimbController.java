@@ -16,7 +16,7 @@ import com.zach.climblog.model.Climb;
 import com.zach.climblog.service.ClimbService;
 
 @RestController
-@RequestMapping("/climbs")
+@RequestMapping("/climbs/api")
 public class ClimbController {
     private final ClimbService climbService;
 
@@ -24,7 +24,7 @@ public class ClimbController {
         this.climbService = climbService;
     }
 
-    @PostMapping("api/addclimb")
+    @PostMapping("/addclimb")
     public ResponseEntity<Climb> addClimb(@RequestBody Climb climb) 
     {
         try {
@@ -35,19 +35,38 @@ public class ClimbController {
         }
     }
 
-    @GetMapping("api/allclimbs")
+    @GetMapping("/allclimbs")
     public List<Climb> getAllClimbs() 
     {
         return climbService.getAllClimbs();
     }
 
-    @GetMapping("api/sent")
+    @GetMapping("/sent")
     public List<Climb> getSentClimbs() 
     {
         return climbService.getSentClimbs();
     }
 
-    @DeleteMapping("api/{id}")
+    @GetMapping("/bygrade")
+    public List<Climb> getClimbsByGrade(String grade) 
+    {
+        return climbService.getClimbsByGrade(grade);
+    }
+
+    @GetMapping("/bytype")
+    public List<Climb> getClimbsByType(String type) 
+    {
+        return climbService.getSentClimbs();
+    }
+
+
+    @GetMapping("/mostrecent")
+    public List<Climb> mostRecentClimb()
+    {
+        return climbService.getMostRecentClimb();
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteClimb(@PathVariable Long id) 
     { 
         try {
