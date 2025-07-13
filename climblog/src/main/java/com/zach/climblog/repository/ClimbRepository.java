@@ -24,5 +24,7 @@ public interface ClimbRepository extends JpaRepository<Climb, Long> {
     //FIXME: this is so incredibly stupid but i dont know springboot enough to write something better
     List<Climb> findTop1ByOrderByDateDesc();
 
+    Climb findTop1ByOrderByDifficultyDesc();
+
 
 }

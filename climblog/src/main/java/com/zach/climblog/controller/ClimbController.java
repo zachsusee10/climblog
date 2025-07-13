@@ -28,6 +28,8 @@ public class ClimbController {
     public ResponseEntity<Climb> addClimb(@RequestBody Climb climb) 
     {
         try {
+            climb.computeDifficulty(climb);
+            System.out.println(climb);
             Climb saved = climbService.addClimb(climb);
             return ResponseEntity.status(201).body(saved);
         } catch (Exception e) {
@@ -56,7 +58,7 @@ public class ClimbController {
     @GetMapping("/bytype")
     public List<Climb> getClimbsByType(String type) 
     {
-        return climbService.getSentClimbs();
+        return climbService.getClimbsByType(type);
     }
 
 
@@ -64,6 +66,12 @@ public class ClimbController {
     public List<Climb> mostRecentClimb()
     {
         return climbService.getMostRecentClimb();
+    }
+
+    @GetMapping("/hardestSend")
+    public Climb getHardestClimb()
+    {
+        return climbService.getHardestClimb();
     }
 
     @DeleteMapping("/{id}")

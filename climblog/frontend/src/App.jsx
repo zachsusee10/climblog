@@ -20,8 +20,8 @@ function App() {
     <>
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/add">Add Climb</Link>
-        <Link to="/list">All Climbs</Link>
+        <Link to="/add">Log</Link>
+        <Link to="/list">Metrics</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />

@@ -1,6 +1,8 @@
 package com.zach.climblog.model;
 import java.util.List;
 
+import com.zach.climblog.utils.Utils;
+
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -10,13 +12,14 @@ import jakarta.persistence.GenerationType;
 
 @Entity
 public class Climb {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String grade;
+    private double difficulty;
     private String type; 
     private String gym;
     private boolean sent;
@@ -27,7 +30,7 @@ public class Climb {
 
     }
 
-    public Climb(Long id, String name, String grade, String type, String gym, boolean sent, LocalDate date)
+    public Climb(Long id, String name, String grade, int difficulty, String type, String gym, boolean sent, LocalDate date)
     {
         this.id = id;
         this.name = name;
@@ -68,6 +71,22 @@ public class Climb {
         this.grade = grade;
     }
 
+
+    public double getDifficulty()
+    {
+        return this.difficulty;
+    }
+
+    public void setDifficulty(double difficulty)
+    {
+        this.difficulty = difficulty;
+    }
+
+    public void computeDifficulty(Climb climb)
+    {
+        this.difficulty = Utils.calcGrade(grade, type);
+    }
+
     public String getGym()
     {
         return this.gym;
@@ -101,7 +120,7 @@ public class Climb {
     @Override
     public String toString() 
     {
-        return "Climb [name=" + name + ", type=" + type + ", gym=" + gym + ", grade=" + grade + 
+        return "Climb [name=" + name + ", type=" + type + ", difficulty=" + difficulty + ", gym=" + gym + ", grade=" + grade + 
         ", sent=" + sent + ", date=" + date + "]";
     }
 }

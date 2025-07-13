@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react'
 
 function AddClimbForm() {
   const GRADES = ['V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17',]
-  const TYPES = ['Boulder', 'Top Rope', 'Lead', 'Solo']
+  const TYPES = ['Boulder', 'Top Rope', 'Sport', 'Trad', 'Solo']
   const BASE = "http://localhost:8080/climbs/api"
 
   const [name, setName] = useState("");
   const [grade, setGrade] = useState(GRADES[0]);
+  const [difficulty, setDifficulty] = useState(0);
   const [type, setType] = useState(TYPES[0]);
   const [sent, setSent] = useState(false);
   const [gym, setGym] = useState("")
@@ -24,7 +25,7 @@ function AddClimbForm() {
       return;
       }
 
-    const newClimb = { name, grade, type, gym, sent, date };
+    const newClimb = { name, grade, type, difficulty, gym, sent, date };
     fetch(`${BASE}/addclimb`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,8 +35,9 @@ function AddClimbForm() {
       .then(data => {
         console.log("Climb added!", data);
         setName("");
-        setGrade("");
-        setType("");
+        setGrade(GRADES[0]);
+        setDifficulty(0);
+        setType(TYPES[0]);
         setSent(false);
         setGym("");
         setDate("");
