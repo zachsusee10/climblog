@@ -10,6 +10,8 @@ import com.zach.climblog.model.Climb;
 
 @Repository
 public interface ClimbRepository extends JpaRepository<Climb, Long> {
+
+    //If i want to have advanced filtering on the frontend am i going to have to write 10000 queries here? fuck
     List<Climb> findByGrade(String grade);
 
 

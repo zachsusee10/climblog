@@ -2,7 +2,7 @@ package com.zach.climblog.utils;
 
 public class Utils {
     
-    
+    //this class is the definition of a hack... don't even know how to do this without hardcoding im a noob
     public static double calcGrade(String grade, String type)
     {
         System.out.println(grade);

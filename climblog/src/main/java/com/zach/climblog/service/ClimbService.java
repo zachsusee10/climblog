@@ -52,7 +52,6 @@ public class ClimbService {
 
     public List<Climb> getMostRecentClimb()
     {
-        System.out.println(climbRepository.findTop1ByOrderByDateDesc());
         return climbRepository.findTop1ByOrderByDateDesc();
     }
 
