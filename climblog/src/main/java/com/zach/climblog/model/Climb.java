@@ -1,7 +1,8 @@
 package com.zach.climblog.model;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zach.climblog.utils.Utils;
+import com.zach.climblog.model.User;
 
 import java.time.LocalDate;
 
@@ -9,6 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Climb {
@@ -16,6 +19,11 @@ public class Climb {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"password", "climbs"}) // Prevent password from being serialized
+    private User user;
 
     private String name;
     private String grade;
@@ -51,6 +59,16 @@ public class Climb {
         this.name = name;
     }
 
+    public Long getId()
+    {
+        return this.id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
     public String getType()
     {
         return this.type;
@@ -82,9 +100,9 @@ public class Climb {
         this.difficulty = difficulty;
     }
 
-    public void computeDifficulty(Climb climb)
+    public void computeDifficulty()
     {
-        this.difficulty = Utils.calcGrade(grade, type);
+        this.difficulty = Utils.calcGrade(this.grade, this.type);
     }
 
     public String getGym()
@@ -115,6 +133,16 @@ public class Climb {
     public void setDate(LocalDate date)
     {
         this.date = date;
+    }
+
+    public User getUser()
+    {
+        return this.user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
     }
 
     @Override

@@ -11,22 +11,27 @@ import com.zach.climblog.model.Climb;
 @Repository
 public interface ClimbRepository extends JpaRepository<Climb, Long> {
 
-    //If i want to have advanced filtering on the frontend am i going to have to write 10000 queries here? fuck
+    // User-filtered queries
+    List<Climb> findByUserId(Long userId);
+    List<Climb> findByUserIdAndGrade(Long userId, String grade);
+    List<Climb> findByUserIdAndType(Long userId, String type);
+    List<Climb> findByUserIdAndSent(Long userId, boolean sent);
+    List<Climb> findByUserIdAndDate(Long userId, LocalDate date);
+    List<Climb> findTop1ByUserIdOrderByDateDesc(Long userId);
+    Climb findTop1ByUserIdOrderByDifficultyDesc(Long userId);
+
+    // Legacy methods, breaking if i get rid of some so just leaving
+    @Deprecated
     List<Climb> findByGrade(String grade);
-
-
+    @Deprecated
     List<Climb> findByType(String type);
-
-
+    @Deprecated
     List<Climb> findBySent(boolean sent);
-
-
+    @Deprecated
     List<Climb> findByDate(LocalDate date);
-
-    //FIXME: this is so incredibly stupid but i dont know springboot enough to write something better
+    @Deprecated
     List<Climb> findTop1ByOrderByDateDesc();
-
+    @Deprecated
     Climb findTop1ByOrderByDifficultyDesc();
-
 
 }
